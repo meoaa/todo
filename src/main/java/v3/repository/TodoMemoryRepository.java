@@ -37,4 +37,9 @@ public class TodoMemoryRepository implements TodoRepository {
         store.remove(todo);
         return todo.getId();
     }
+
+    @Override
+    public boolean isEmpty() {
+        return store.isEmpty();
+    }
 }

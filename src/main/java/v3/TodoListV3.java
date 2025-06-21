@@ -1,7 +1,11 @@
 package v3;
 
 import domain.Todo;
-import v2.TodoService;
+import v2.TodoServiceV2;
+import v3.dto.TodoCreateRequestDto;
+import v3.dto.TodoResponseDto;
+import v3.service.TodoService;
+import v3.service.TodoServiceImpl;
 
 import java.util.List;
 import java.util.Scanner;
@@ -9,7 +13,7 @@ import java.util.Scanner;
 public class TodoListV3 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        final TodoService todoService = new TodoService();
+        final TodoService todoService = new TodoServiceImpl();
         int menu;
 
         while(true){
@@ -27,9 +31,9 @@ public class TodoListV3 {
                     System.out.print("할 일을 입력해주세요.");
                     String title = sc.next();
                     try{
-                        Todo savedTodo = todoService.createTodo(title);
+                        TodoResponseDto responseDto = todoService.createTodo(new TodoCreateRequestDto(title));
                         print("할 일이 등록되었습니다.");
-                        print(savedTodo);
+                        print(responseDto);
                     } catch (Exception ex) {
                         print(ex.getMessage());
                     }
@@ -40,8 +44,8 @@ public class TodoListV3 {
                     System.out.print("id를 입력해주세요.");
                     try {
                         int id = sc.nextInt();sc.nextLine();
-                        Todo findTodo = todoService.findOneTodo(id);
-                        print(findTodo);
+                        TodoResponseDto responseDto = todoService.findOneTodo(id);
+                        print(responseDto);
                     } catch (Exception ex) {
                         print(ex.getMessage());
                     }
@@ -52,9 +56,9 @@ public class TodoListV3 {
                     print("id를 입력해주세요.");
                     try {
                         int id = sc.nextInt(); sc.nextLine();
-                        Todo updatedTodo = todoService.updatedCompleted(id);
+                        TodoResponseDto responseDto = todoService.updatedCompleted(id);
                         print("할 일이 변경되었습니다.");
-                        print(updatedTodo);
+                        print(responseDto);
                     } catch (Exception ex){
                         print(ex.getMessage());
                     }
@@ -63,8 +67,8 @@ public class TodoListV3 {
                 case 4:
                     print("할 일을 전체조회합니다.");
                     try{
-                        List<Todo> allTodo = todoService.findAllTodo();
-                        print(allTodo);
+                        List<TodoResponseDto> responseDtos = todoService.findAllTodo();
+                        print(responseDtos);
                     } catch (Exception ex){
                         print(ex.getMessage());
                     }

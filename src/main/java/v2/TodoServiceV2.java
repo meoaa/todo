@@ -5,9 +5,9 @@ import domain.Todo;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public class TodoService {
+public class TodoServiceV2 {
 
-    private final TodoRepository todoRepository = new TodoRepository();
+    private final TodoRepositoryV2 todoRepository = new TodoRepositoryV2();
 
     public Todo createTodo(String title){
         return todoRepository.save(new Todo(title));

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class TodoRepository {
+public class TodoRepositoryV2 {
 
     private static List<Todo> store = new ArrayList<>();
 

@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class TodoListV2 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        final TodoService todoService = new TodoService();
+        final TodoServiceV2 todoServiceV2 = new TodoServiceV2();
         int menu;
 
         while(true){
@@ -26,7 +26,7 @@ public class TodoListV2 {
                     System.out.print("할 일을 입력해주세요.");
                     String title = sc.next();
                     try{
-                        Todo savedTodo = todoService.createTodo(title);
+                        Todo savedTodo = todoServiceV2.createTodo(title);
                         print("할 일이 등록되었습니다.");
                         print(savedTodo);
                     } catch (Exception ex) {
@@ -39,7 +39,7 @@ public class TodoListV2 {
                     System.out.print("id를 입력해주세요.");
                     try {
                         int id = sc.nextInt();sc.nextLine();
-                        Todo findTodo = todoService.findOneTodo(id);
+                        Todo findTodo = todoServiceV2.findOneTodo(id);
                         print(findTodo);
                     } catch (Exception ex) {
                         print(ex.getMessage());
@@ -51,7 +51,7 @@ public class TodoListV2 {
                     print("id를 입력해주세요.");
                     try {
                         int id = sc.nextInt(); sc.nextLine();
-                        Todo updatedTodo = todoService.updatedCompleted(id);
+                        Todo updatedTodo = todoServiceV2.updatedCompleted(id);
                         print("할 일이 변경되었습니다.");
                         print(updatedTodo);
                     } catch (Exception ex){
@@ -62,7 +62,7 @@ public class TodoListV2 {
                 case 4:
                     print("할 일을 전체조회합니다.");
                     try{
-                        List<Todo> allTodo = todoService.findAllTodo();
+                        List<Todo> allTodo = todoServiceV2.findAllTodo();
                         print(allTodo);
                     } catch (Exception ex){
                         print(ex.getMessage());
@@ -78,7 +78,7 @@ public class TodoListV2 {
                         String confirm = sc.nextLine();
 
                         if(confirm.equalsIgnoreCase("y")){
-                            long deletedTodoId = todoService.deleteTodo(id);
+                            long deletedTodoId = todoServiceV2.deleteTodo(id);
                             print("삭제되었습니다. id :" + deletedTodoId);
                         } else {
                             print("삭제가 취소되었습니다.");

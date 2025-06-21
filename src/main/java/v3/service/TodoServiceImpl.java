@@ -1,27 +1,37 @@
 package v3.service;
 
 import domain.Todo;
-import v2.TodoRepository;
+import v3.dto.TodoCreateRequestDto;
+import v3.dto.TodoResponseDto;
+import v3.repository.TodoMemoryRepository;
+import v3.repository.TodoRepository;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 public class TodoServiceImpl implements TodoService {
 
-    private final TodoRepository todoRepository = new TodoRepository();
+    private final TodoRepository todoRepository = new TodoMemoryRepository();
 
-    public Todo createTodo(String title){
-        return todoRepository.save(new Todo(title));
+    public TodoResponseDto createTodo(TodoCreateRequestDto dto){
+        Todo savedTodo = todoRepository.save(new Todo(dto.getTitle()));
+        return TodoResponseDto.of(savedTodo);
     }
 
-    public Todo findOneTodo(long id){
-        return checkExistTodo(id);
+    public TodoResponseDto findOneTodo(long id){
+        Todo findTodo = checkExistTodo(id);
+        return TodoResponseDto.of(findTodo);
     }
-    public List<Todo> findAllTodo(){
+    public List<TodoResponseDto> findAllTodo(){
+
         if(todoRepository.isEmpty()){
             throw new NoSuchElementException("할 일이 존재하지 않습니다.");
         }
-        return todoRepository.findAll();
+        List<Todo> todos = todoRepository.findAll();
+        return todos.stream().
+                map(TodoResponseDto::of)
+                .collect(Collectors.toList());
     }
     
     public long deleteTodo(long id){
@@ -29,10 +39,10 @@ public class TodoServiceImpl implements TodoService {
         return todoRepository.delete(todo);
     }
 
-    public Todo updatedCompleted(long id){
+    public TodoResponseDto updatedCompleted(long id){
         Todo todo = checkExistTodo(id);
         todo.toggleComplete();
-        return todo;
+        return TodoResponseDto.of(todo);
     }
 
     private Todo checkExistTodo(long id) {

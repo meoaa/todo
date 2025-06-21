@@ -1,18 +1,19 @@
 package v3.service;
 
-import domain.Todo;
+import v3.dto.TodoCreateRequestDto;
+import v3.dto.TodoResponseDto;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 public interface TodoService {
 
-    Todo createTodo(String title);
+    TodoResponseDto createTodo(TodoCreateRequestDto dto);
 
-    Todo findOneTodo(long id);
-    List<Todo> findAllTodo();
+    TodoResponseDto findOneTodo(long id);
+
+    List<TodoResponseDto> findAllTodo();
 
     long deleteTodo(long id);
 
-    Todo updatedCompleted(long id);
+    TodoResponseDto updatedCompleted(long id);
 }

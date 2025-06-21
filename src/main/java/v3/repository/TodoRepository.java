@@ -13,4 +13,6 @@ public interface TodoRepository {
     List<Todo> findAll();
 
     long delete(Todo todo);
+
+    boolean isEmpty();
 }
