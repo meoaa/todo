@@ -1,6 +1,7 @@
 package v4.config;
 
 import v4.repository.TodoMemoryRepository;
+import v4.repository.TodoRepository;
 import v4.service.TodoService;
 import v4.service.TodoServiceImpl;
 
@@ -10,7 +11,7 @@ public class TodoConfig {
         return new TodoServiceImpl(todoRepository());
     }
 
-    public TodoMemoryRepository todoRepository() {
+    public TodoRepository todoRepository() {
         return new TodoMemoryRepository();
     }
 }
