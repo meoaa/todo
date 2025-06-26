@@ -1,11 +1,11 @@
 package v3.service;
 
-import v3.dto.TodoCreateRequestDto;
-import v3.dto.TodoResponseDto;
+import domain.dto.TodoCreateRequestDto;
+import domain.dto.TodoResponseDto;
 
 import java.util.List;
 
-public interface TodoService {
+public interface TodoServiceV3 {
 
     TodoResponseDto createTodo(TodoCreateRequestDto dto);
 

@@ -1,17 +1,20 @@
-package v3;
+package v4;
+
 
 import domain.dto.TodoCreateRequestDto;
 import domain.dto.TodoResponseDto;
-import v3.service.TodoServiceV3;
-import v3.service.TodoServiceV3Impl;
+import v4.config.TodoConfig;
+import v4.service.TodoService;
 
 import java.util.List;
 import java.util.Scanner;
 
-public class TodoListV3 {
+public class TodoList {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        final TodoServiceV3 todoServiceV3 = new TodoServiceV3Impl();
+        TodoConfig todoConfig = new TodoConfig();
+        TodoService todoService = todoConfig.todoService();
+
         int menu;
 
         while(true){
@@ -29,7 +32,7 @@ public class TodoListV3 {
                     System.out.print("할 일을 입력해주세요.");
                     String title = sc.next();
                     try{
-                        TodoResponseDto responseDto = todoServiceV3.createTodo(new TodoCreateRequestDto(title));
+                        TodoResponseDto responseDto = todoService.createTodo(new TodoCreateRequestDto(title));
                         print("할 일이 등록되었습니다.");
                         print(responseDto);
                     } catch (Exception ex) {
@@ -42,7 +45,7 @@ public class TodoListV3 {
                     System.out.print("id를 입력해주세요.");
                     try {
                         int id = sc.nextInt();sc.nextLine();
-                        TodoResponseDto responseDto = todoServiceV3.findOneTodo(id);
+                        TodoResponseDto responseDto = todoService.findOneTodo(id);
                         print(responseDto);
                     } catch (Exception ex) {
                         print(ex.getMessage());
@@ -54,7 +57,7 @@ public class TodoListV3 {
                     print("id를 입력해주세요.");
                     try {
                         int id = sc.nextInt(); sc.nextLine();
-                        TodoResponseDto responseDto = todoServiceV3.updatedCompleted(id);
+                        TodoResponseDto responseDto = todoService.updatedCompleted(id);
                         print("할 일이 변경되었습니다.");
                         print(responseDto);
                     } catch (Exception ex){
@@ -65,7 +68,7 @@ public class TodoListV3 {
                 case 4:
                     print("할 일을 전체조회합니다.");
                     try{
-                        List<TodoResponseDto> responseDtos = todoServiceV3.findAllTodo();
+                        List<TodoResponseDto> responseDtos = todoService.findAllTodo();
                         print(responseDtos);
                     } catch (Exception ex){
                         print(ex.getMessage());
@@ -81,7 +84,7 @@ public class TodoListV3 {
                         String confirm = sc.nextLine();
 
                         if(confirm.equalsIgnoreCase("y")){
-                            long deletedTodoId = todoServiceV3.deleteTodo(id);
+                            long deletedTodoId = todoService.deleteTodo(id);
                             print("삭제되었습니다. id :" + deletedTodoId);
                         } else {
                             print("삭제가 취소되었습니다.");

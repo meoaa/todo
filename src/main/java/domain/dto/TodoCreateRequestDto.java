@@ -1,4 +1,4 @@
-package v3.dto;
+package domain.dto;
 
 public class TodoCreateRequestDto {
     private String title;
